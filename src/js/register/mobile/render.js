@@ -11,6 +11,7 @@ const tpl = (opts = {}) => {
 					<span>验证</span>
 					<div id="register-verify-wrapper"></div>
 				</label>
+				<input type="submit" class="disabled" disabled id="register-verify-btn" value="下一步" />
 			</form>
 		</div>
 	`;
