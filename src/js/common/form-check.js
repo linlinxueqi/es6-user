@@ -5,6 +5,12 @@
 // <input type="text" valid="mobile,phone" />
 const rules = {
 	mobile:(v) =>{
+    if(!v.match(/^1(3|4|5|7|8)\d{9}$/)){
+      return {
+        type:'mobile',
+        message:'手机号格式不正确'
+      }
+    }
 		return;
 	},
 	email: (v) => {
@@ -24,15 +30,20 @@ const formCheck = (form) => {
   	return;
   }
   const elements = form.elements;
+  console.log(elements);
   let checkResult = [];
+  
   Array.from(elements).filter((item) =>　{
-  	console.log(item);
-  	return item.getAttribute("valid");
+  	return item.getAttribute("vaild");
   }).map((item)=>{
-  	const valids = item.getAttribute("valid").split(",");
+    console.log(item);
+  	const valids = item.getAttribute("vaild").split(",");
+    console.log(valids);
   	const value = item.value;
+    console.log(value);
   	let errorArray = [];
   	valids.forEach((valid) => {
+      console.log(rules[valid]);
   		if(rules[valid]){
   			let result = rules[valid](value);
   			result && errorArray.push(result);

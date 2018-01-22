@@ -38,7 +38,7 @@
         }
         var registerMobile = pass.regMobile({
             container: document.getElementById('container'),
-            success: function() {
+            success: function(token) {
                 if (getUrlParams('bind')) {
                     location.replace('common-success.html?text=手机号绑定成功');
                 }
@@ -46,7 +46,7 @@
                     location.replace('common-success.html?text=手机号验证成功，已将重置链接通过短信发送到您的手机');
                 }
                 else {
-                    location.replace('register-info.html');
+                    location.replace('register-info.html?token='+token);
                 }
 
             }

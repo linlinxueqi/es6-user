@@ -12,10 +12,26 @@ FetchMock.mock('./login',(url,opts) => {
 	}
 });
 
-FetchMock.mock('./getMobileVerifyToken',(url,method) => {
+FetchMock.mock('./getMobileVerifyToken',(url,opts) => {
 	return {
 		code :200,
 		message : 'success',
 		mobileVerifyToken : '123456eeee'
 	};
+});
+
+FetchMock.mock('/register/getVerifyCode',(url,opts) => {
+	const params = opts.params;
+	return {code :200,message:'success',mobile:params.mobile};
+})
+
+FetchMock.mock('/register/mobile',(url,opts) => {
+	const params = opts.params;
+	if(params.verifyCode === '123456'){
+		return {code :200,message:'success',token:'123456789'};
+
+	}else{
+		return {code :400,message:'invaild verifyCode'};
+
+	}	
 })

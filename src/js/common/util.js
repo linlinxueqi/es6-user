@@ -17,7 +17,7 @@ const addClass = (obj,cls) => {
 	}
 }
  const removeClass = (obj,cls) => {
- 	if(!hasClass(obj,cls)){
+ 	if(hasClass(obj,cls)){
  		const reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
  		obj.className = obj.className.replace(reg,' ');
  	}
