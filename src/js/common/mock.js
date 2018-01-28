@@ -1,4 +1,6 @@
 import FetchMock from 'fetch-mock';
+
+import regionData from '../data/region-data.js';
 FetchMock.mock('./login',(url,opts) => {
 	const params = opts.params;
 	if(params.account === "123456"){
@@ -25,6 +27,14 @@ FetchMock.mock('/register/getVerifyCode',(url,opts) => {
 	return {code :200,message:'success',mobile:params.mobile};
 })
 
+FetchMock.mock('/register/info',(url,opts) => {
+	return {code :200,message:'success'};
+})
+
+FetchMock.mock('/register/payment',(url,opts) => {
+	return {code :200,message:'success'};
+})
+
 FetchMock.mock('/register/mobile',(url,opts) => {
 	const params = opts.params;
 	if(params.verifyCode === '123456'){
@@ -35,3 +45,6 @@ FetchMock.mock('/register/mobile',(url,opts) => {
 
 	}	
 })
+
+
+FetchMock.mock('./region-data',{code:200,message:'success',data:regionData})
