@@ -1,7 +1,8 @@
 import Region from '../../common/region.js';
 import { $ } from '../../common/util.js';
 import {fetchJson} from '../../common/fetch.js';
-const tpl = (data = {}) => {
+const tpl = (data = {},opts = {}) => {
+	console.log(data);
 	return `<div class="register-info-wrapper" id="register-info-wrapper">
 		<form class="register-info-form" id="register-info-form" onsubmit="return false">
 			<label>
@@ -33,7 +34,7 @@ const tpl = (data = {}) => {
 			</label>
 			<label>
 				<span></span>
-				<input type="submit" id="register-info-btn" value="下一步" />
+				<input type="submit" id="register-info-btn" value="${opts.btnText}" />
 			</label>
 		</form>
 	</div>`
@@ -41,16 +42,24 @@ const tpl = (data = {}) => {
 } 
 	
 export default async (opts) => {
-	if(opts.update){
-		opts.container.innerHTML = tpl();
+	if(!opts.update){
+		opts.container.innerHTML = tpl({}.opts);
 		const region = new Region({
 			container:$('register-info-address'),
 			name:'region'
 		})
 	}else{
-		const result = await fetchJson('/profile'.{});
+		const result = await fetchJson('/profile');
 		if(result.code === 200){
-			opts.container.innerHTML = tpl(result.data);
+			opts.container.innerHTML = tpl(result.data,opts);
+			const regionData = result.data.regionCode ? result.data.regionCode.split(',').map((item) => parseInt(item)) :'';
+			const region = new Region({
+				container:$('register-info-address'),
+				name:'region',
+				btnText:'保 存',
+				initData:regionData
+			})
+
 		}
 	}
 	

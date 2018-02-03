@@ -44,4 +44,56 @@ const  isDom = (obj) => {
  	return true
  }
 
-export { getId as $, addClass, removeClass,checkOptions}
+
+ const getUrlParams = (key) => {
+ 	const query = location.search.replace(/^\?/,'');
+ 	let obj = {};
+ 	query.split('&').map((item) => {
+ 		let tmp = item.split("=");
+ 		obj[tmp[0]] = tmp[1];
+ 	})
+ 	if(!key){
+ 		return obj;
+ 	}else{
+ 		return obj[key]
+ 	}
+ }
+
+ //实现事件代理  or 事件绑定10-6
+// bindEvent(el,eventType,fn);//事件绑定
+//bindEvent(el.eventType,classSelector,fn)//事件代理
+const bindEvent = (el,eventType,...args) => {
+	let selector;
+	let fn;
+	let target;
+	const findNode = (element,selector,endel) =>{
+		if(element === endel){
+			return;
+		}
+		if(document.querySelector(selector).className === element.className){
+			target = el;
+			return;
+		}
+		else{
+			findNode(element.parentNode,selector,endel);
+		}
+	}
+	if(typeof args[0] === 'string'){
+		selector = args[0];
+		if(typeof args[1]  === 'function'){
+			fn = args[1];
+		}
+	}else if(typeof args[0] === 'function'){
+		fn = args[0];
+	}
+	el.addEventListener(eventType,function(e){
+		if(!selector){
+			fn.call(el,e);
+		}else{
+			findNode(e.target,selector,el);
+			target && fn.call(target,{target:target});
+		}
+	})
+}
+
+export { getId as $, addClass, removeClass,checkOptions,getUrlParams,bindEvent}

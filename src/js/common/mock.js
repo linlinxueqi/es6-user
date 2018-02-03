@@ -46,5 +46,69 @@ FetchMock.mock('/register/mobile',(url,opts) => {
 	}	
 })
 
+FetchMock.mock('/profile', {
 
-FetchMock.mock('./region-data',{code:200,message:'success',data:regionData})
+	code :200,
+	message:'success',
+	data:{
+		nickname:'xiaoxue',
+		mobile:'13523232323',
+		email:'xoapming@qq.com',
+		realname:'小雪',
+		sex:1,
+		birthday:'1997-01-23',
+		regionCode:'9,73,723',
+		regionString:'上海市静安区'
+
+	}
+})
+
+FetchMock.mock('/delivery-address',{
+	code: 200,
+    message: 'success',
+    data: [{
+        name: '张三',
+        regionSting: '北京市东城区',
+        regionCode: '1,1,1',
+        detailAddress: '和平北街334号',
+        postalcode: '100000',
+        mobile: 18512567389,
+        telephone: '',
+        addrId: 345
+    },
+    {
+        name: '张三',
+        regionSting: '北京市西城区',
+        regionCode: '1,1,2',
+        detailAddress: '和平西街234号',
+        postalcode: '100000',
+        mobile: 18512567389,
+        telephone: '',
+        addrId: 346
+    },
+    {
+        name: '李四',
+        regionSting: '上海市静安区',
+        regionCode: '9,73,723',
+        detailAddress: '和平北街334号',
+        postalcode: '100000',
+        mobile: 18517384387,
+        telephone: '',
+        addrId: 347
+    }]
+})
+FetchMock.mock('./region-data',{code:200,message:'success',data:regionData});
+FetchMock.mock('/save-delivery',{code:200,message:'success'});
+FetchMock.mock('/del-delivery',{code:200,message:'success'});
+FetchMock.mock('/security-info',{
+	code:200,
+	message:'success',
+	data:{
+		nickname:"xiaoxue",
+		mobile:"13532332323",
+		email:"xiaoxue@163.com",
+		password:1,
+		identity:1,
+		secretQuestion:0
+	}
+});
