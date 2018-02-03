@@ -112,3 +112,5 @@ FetchMock.mock('/security-info',{
 		secretQuestion:0
 	}
 });
+FetchMock.mock('/forget',{code:200,message:'success'});
+FetchMock.mock('/send-forget-verifyCode',{code:200,message:'success'});
